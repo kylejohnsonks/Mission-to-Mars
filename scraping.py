@@ -125,7 +125,7 @@ def hemisphere_images(browser):
         fullres_link=image_soup.find('a')['href']
 
         #append dictionary to hemisphere image urls
-        hemisphere_image_urls.append({"img_url":url+fullres_link,
+        hemisphere_image_urls.append({"img_url":"https://data-class-mars-hemispheres.s3.amazonaws.com/Mars_Hemispheres/"+fullres_link,
                                   "title":title})
 
     return hemisphere_image_urls
