@@ -19,6 +19,7 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
+        "hemisphere_images":hemisphere_images(browser),
         "last_modified": dt.datetime.now()
     }
 
@@ -96,6 +97,40 @@ def mars_facts():
 
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html(classes="table table-striped")
+
+# D1: Scrape High-Resolution Mars’ Hemisphere Images and Titles 
+def hemisphere_images(browser):
+  
+    # 1. Use browser to visit the URL 
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+    
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    items=soup(browser.html,'html.parser').find_all('div',class_='item')
+
+    for item in items:
+        #get image title
+        title = item.find_all('a',class_="itemLink product-item")[1].h3.text
+        link = item.a['href']
+    
+        #click link item.find_all('a',class_="itemLink product-item")[0].img["src"] 
+        browser.visit(url+link)
+    
+        #get page html, find div with class downloads and save to image soup
+        image_soup=soup(browser.html,'html.parser').find('div',class_="downloads")
+        #in image soup, find a tag and get href, save to fullres_link
+        fullres_link=image_soup.find('a')['href']
+
+        #append dictionary to hemisphere image urls
+        hemisphere_image_urls.append({"img_url":url+fullres_link,
+                                  "title":title})
+
+    return hemisphere_image_urls
+
+
 
 if __name__ == "__main__":
     # If running as script, print scraped data
