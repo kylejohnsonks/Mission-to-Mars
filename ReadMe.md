@@ -9,7 +9,7 @@ The purpose of this project is to scrape images, tables, data and text from four
 
 After collecting the data, it is formatted and stored in a mongo database.  A flask application retireves the data from mongo and displays it to the user with help from bootstrap 3 CSS.
 
-![Page View](/Static/images/AppView.png)<br>
+![Page View](/static/images/AppView.png)<br>
 
 # Tools used
 - python, pandas
